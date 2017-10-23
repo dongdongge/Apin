@@ -1,3 +1,3 @@
 # Apin
 ReactNtive的壳
-![](https://github.com/dongdongge/Apin/master/main/img/demo.gif)
+![](https://github.com/dongdongge/Apin/raw/master/main/img/demo.gif)
