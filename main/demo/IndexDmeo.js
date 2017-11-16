@@ -17,7 +17,7 @@ import {StackNavigator,TabNavigator} from 'react-navigation';
 import DemoPay from './DemoPay.js';
 import DemoJpush from './DemoJpush.js';
 
-
+import ToastView from '../view/ToastView.js';
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
     'Cmd+D or shake for dev menu',
@@ -25,6 +25,7 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
+import HttpTools from '../http/HttpTools.js';
 export default class IndexDmeo extends Component<{}> {
 
   render() {
@@ -37,14 +38,23 @@ export default class IndexDmeo extends Component<{}> {
         <Text style={styles.instructions}>
           To get started, edit App.js
         </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
+          <TouchableOpacity onPress={()=>{
+              HttpTools.get('/users/queryUser',(res)=>{
+                  this.showToastViewAction.showToast(res.code+res.msg);
+              },(err)=>[
+                  this.showToastViewAction.showToast(err.code+err.msg)
+              ]);
+          }}>
+                <Text style={styles.instructions}>
+                  请求联网测试
+                </Text>
+          </TouchableOpacity>
         <TouchableOpacity
             onPress={()=>{navigate('pay')}}
             style={{height:50}}>
           <Text>跳转Demo</Text>
         </TouchableOpacity>
+          <ToastView ref={(ref)=>{this.showToastViewAction=ref}} />
       </View>
     );
   }
